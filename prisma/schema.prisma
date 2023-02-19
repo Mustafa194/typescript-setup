@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid()) @db.VarChar(36)
+
+  username String @unique
+
+  email String @unique
+
+  // Note: argon2 hash alwasy produces 97 characters hash
+  password String @db.Char(97)
+}
